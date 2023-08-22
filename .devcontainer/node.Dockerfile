@@ -10,7 +10,7 @@ FROM node:20 AS builder
 # Install build essentials ---------------------------------------------------- #
 RUN apt-get update                             && \
     apt-get install -y --no-install-recommends    \
-        sudo
+        sudo=1.9.13p3-1+deb12u1
 
 WORKDIR /opt/app
 COPY . /opt/app
