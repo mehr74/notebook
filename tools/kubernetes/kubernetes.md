@@ -1,0 +1,1 @@
+ docker build -t flaskapp-mysql:v1 -f db.Dockerfile .
