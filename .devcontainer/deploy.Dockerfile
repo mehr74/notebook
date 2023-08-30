@@ -22,16 +22,11 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" \
 USER 1000
 WORKDIR /opt/github-action
 ENV VERSION=2.308.0
-RUN curl -o actions-runner-osx-x64-${VERSION}.tar.gz \
-  -L https://github.com/actions/runner/releases/download/v${VERSION}/actions-runner-osx-x64-${VERSION}.tar.gz && \
-  tar xzf ./actions-runner-osx-x64-${VERSION}.tar.gz
+RUN curl -o actions-runner-linux-x64-${VERSION}.tar.gz \
+  -L https://github.com/actions/runner/releases/download/v${VERSION}/actions-runner-linux-x64-${VERSION}.tar.gz && \
+  tar xzf ./actions-runner-linux-x64-${VERSION}.tar.gz
 
 USER root
 RUN ./bin/installdependencies.sh
-
-RUN curl https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb \
-    -o packages-microsoft-prod.deb && \
-  dpkg -i packages-microsoft-prod.deb && \
-  apt-get update 
 
 USER 1000
