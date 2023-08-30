@@ -7,14 +7,6 @@ include .devcontainer/rules.mk
 
 HELP_MSG += \tcheck-hadolint\t\t check Dockerfile with hadolint linter\n
 
-help:
-	@printf "Usage: make [target]                               \n";
-	@printf "                                                   \n";
-	@printf "Available targets:                                 \n";
-	@printf "                                                   \n";
-	@printf "\thelp                     Show this help message  \n";
-	@printf "$(HELP_MSG)                                        \n";
-	@printf "                                                   \n";
 
 check: check-hadolint check-yamllint
 
@@ -26,3 +18,9 @@ check-ymllint:
 
 clean:
 	$(RM) -rf build
+
+help:
+	@echo "Usage: make [target] [VARIABLE=value]\n"
+	@echo "$$BUILD_IMAGE_HELP_INFO\n"
+	@echo "$$BUILD_DEPLOY_IMAGE_HELP_INFO\n"
+	@echo "$$RUN_BUILD_HELP_INFO\n"
