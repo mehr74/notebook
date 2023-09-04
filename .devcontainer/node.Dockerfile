@@ -11,6 +11,3 @@ COPY . /opt/app
 
 # Install NPM packages required for docusaurus -------------------------------- #
 RUN npm install
-RUN npm run build
-
-

@@ -20,6 +20,7 @@ DEPLOY_DOCKER_FILE ?= $(CONTAINER_DIR)/deploy.Dockerfile
 DOCKER_ENTRYPOINT  ?= $(CONTAINER_DIR)/develop-entrypoint.sh
 SHARED_DIRS        ?= $(WORK_DIR)
 
+# ============================================================================= #
 define BUILD_IMAGE_HELP_INFO
   build-image
     build the image from the Dockerfile
@@ -31,6 +32,7 @@ build-image:
 		--build-arg DOCKER_ENTRYPOINT=$(DOCKER_ENTRYPOINT) \
 		--file $(DOCKER_FILE) .
 
+# ============================================================================= #
 define BUILD_DEPLOY_IMAGE_HELP_INFO
   build-deploy-image
     build the image from the Dockerfile
@@ -44,26 +46,23 @@ build-deploy-image:
 
 # ============================================================================= #
 define RUN_BUILD_HELP_INFO
-  run-build	
+  build	
     run the build command in a container from the build image
 endef
 export RUN_BUILD_HELP_INFO
 
-run-build: build-image directories
-	@docker run -it --rm                                     \
-		--name $(CONTAINER_NAME)                         \
-		--network host                                   \
-		--env AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID)     \
-		--env AWS_SECRET_ACCESS_KEY=$(AWS_ACCESS_KEY_ID) \
-		--env USERNAME=$(USERNAME)                       \
-		--env USER_UID=$(USER_UID)                       \
-		--env USER_GID=$(USER_GID)                       \
-		--env PYTHON_REQ=$(PYTHON_REQ)                   \
-		--env WORK_DIR=$(WORK_DIR)                       \
-		$(foreach dir, $(SHARED_DIRS), -v $(dir):$(dir)) \
+build: build-image 
+	@docker run -it --rm                     \
+		--name $(CONTAINER_NAME)               \
+		--env WORK_DIR=$(WORK_DIR)             \
+		-v $(WORK_DIR)/build:/opt/app/build    \
 		$(IMAGE_NAME):build npm run build
 
+# ============================================================================= #
+define CLEAN_IMAGE_HELP_INFO
+  clean-image 
+    remove the $(IMAGE_NAME) image 
+endef
+export CLEAN_IMAGE_HELP_INFO
 clean-image:
-	@docker rmi --force $(IMAGE_NAME)
-	@rm -rf $(BUILD_IMAGE)
-	@rm -rf $(DIRECTORIES)
+	@docker rmi --force $(IMAGE_NAME):deploy $(IMAGE_NAME):build
