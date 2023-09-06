@@ -169,4 +169,5 @@ services:
 ```
 
 ## References 
+* [Source Code](https://github.com/mehr74/notebook/tree/main/tools/kubernetes/platform)
 * https://stavshamir.github.io/python/dockerizing-a-flask-mysql-app-with-docker-compose/
