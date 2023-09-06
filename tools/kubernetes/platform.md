@@ -57,6 +57,24 @@ if __name__ == '__main__':
 <summary>
 <p>
 
+**requirements.txt** — contains the Python dependencies for the Flask app
+</p>
+</summary>
+<p>
+
+```python title="requirements.txt"
+Flask
+mysql-connector
+```
+
+</p>
+</details>
+
+
+<details>
+<summary>
+<p>
+
 **app.Dockerfile** — a Dockerfile for the Flask app
 </p>
 </summary>

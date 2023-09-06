@@ -2,3 +2,9 @@ Makefile
 node_modules
 build
 .devcontainer
+tools
+build
+cloud
+coding
+static
+src
