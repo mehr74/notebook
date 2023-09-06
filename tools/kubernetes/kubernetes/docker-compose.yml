@@ -1,0 +1,19 @@
+version: "2"
+services:
+  flaskapp:
+    build: 
+      context: ./app
+      dockerfile: app.Dockerfile
+    links:
+      - flaskapp-mysql
+    ports:
+      - "5000:5000"
+  flaskapp-mysql:
+    platform: linux/x86_64
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    ports:
+      - "32000:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
